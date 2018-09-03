@@ -62,6 +62,8 @@ public class PlayerMove : MonoBehaviour {
 	void FlipPlayer()
 	{
 		//localScale refers to our transform component. when "scale" turns negative, our player looks to the left and when positive it looks right
+		//I am still trying to figure out what !FacingRight even does, but removing it causes moving left to show player constantly flipping left AND right. while moving right is ok.
+		//the rest of the code basically changes the transform component's scale to the opposite value either negative or positive
 		FacingRight = !FacingRight;
 		Vector2 LocalScale = transform.localScale;
 		LocalScale.x *= -1;
