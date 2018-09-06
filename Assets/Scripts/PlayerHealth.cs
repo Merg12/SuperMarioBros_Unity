@@ -9,11 +9,10 @@ public class PlayerHealth : MonoBehaviour {
 	public bool HasDied;
 
 	// Use this for initialization
-	void Start () {
+	//void Start () {
 
-		HasDied = false; //player has not yet died
-		
-	}
+		//HasDied = false; //player has not yet died	
+	//}
 	
 	// Update is called once per frame
 	void Update () {
@@ -21,22 +20,22 @@ public class PlayerHealth : MonoBehaviour {
 		if(gameObject.transform.position.y < -7)
 		{
 			Debug.Log("Player Has Died!(Update)");
-			HasDied = true;
+			Die(); //replaced HasDied = true;
 		}
-		if(HasDied == true)
-		{
-			StartCoroutine("Die");
-		}
+		//if(HasDied == true)
+		//{
+		//	StartCoroutine("Die");
+		//}
 		
 	}
 
 	//as you can see from the previous line start Co-routine to Die actually moves the work to IEnumerator function to die
-	IEnumerator Die()
+	void Die() //replaced IEnumerator Die()
 	{
 		SceneManager.LoadScene("SampleScene");
-		yield return null;
+		//yield return null;
 		//Debug.Log("Player has Fallen!");
 		//yield return new WaitForSeconds(2);
-		//Debug.Log("Player has Died!(IEnumeratorDie)");
+		Debug.Log("Player has Died!(IEnumeratorDie)");
 	}
 }

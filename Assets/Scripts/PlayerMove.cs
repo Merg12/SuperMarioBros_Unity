@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour {
 	public bool FacingRight = true;
 	public int PlayerJumpPower = 1250;
 	public float MoveX;
+	public bool isGrounded;
 
 //======================================================================================================
 
@@ -68,6 +69,15 @@ public class PlayerMove : MonoBehaviour {
 		Vector2 LocalScale = transform.localScale;
 		LocalScale.x *= -1;
 		transform.localScale = LocalScale;
+	}
+
+	void OnCollisionEnter2D(Collision2D col)
+	{
+		Debug.Log("Player has collided with " + col.collider.name);
+		if(col.gameObject.tag == "Ground")
+		{
+			isGrounded = true;
+		}
 	}
 		
 }
