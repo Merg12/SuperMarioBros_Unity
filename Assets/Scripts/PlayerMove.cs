@@ -30,7 +30,8 @@ public class PlayerMove : MonoBehaviour {
 		//controls
 		MoveX = Input.GetAxis("Horizontal");
 
-		if(Input.GetButtonDown("Jump"))
+		//so this means, you can "jump" by pressing the input but ALSO/AND as long as isGrounded (or player is on the ground) is true as well, both conditions must be met before player can jump again
+		if(Input.GetButtonDown("Jump") && isGrounded == true)
 		{
 			Jump();
 		}
@@ -57,7 +58,9 @@ public class PlayerMove : MonoBehaviour {
 		//QUESTION: why doesn't this one have a GameObject.<> before GetComponent?
 		//ANSWER: i added gameObject to the beginning and it doesn't seem to make a difference. my guess is that it doesn't matter being a function outside the update function
 		//NOTE: i found out that by changing .up to .down or .left or .right, the player would kinda skip in those respective directions. the only logical way of doing it right is using .up
+		//now that the program knows that isGrounded can be false when player is in the air, we can make another condition/qualifier in the declaration of the jump input forcing another condition to be true along with the jump using "&&"
 		GetComponent<Rigidbody2D>().AddForce(Vector2.up* PlayerJumpPower);
+		isGrounded = false;
 	}
 
 	void FlipPlayer()
@@ -71,10 +74,13 @@ public class PlayerMove : MonoBehaviour {
 		transform.localScale = LocalScale;
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
+	//this function lets us know if our player is touching the floor or not
+	//since player can jump as many times even while in the air, we will try to restrict its jumps to one by every time he touches the ground
+	//we noticed that once the player touches the ground, isGrounded turns and remains true, so we placed a false condition when player jumps in that jump function
+	void OnCollisionEnter2D(Collision2D HasCollided)
 	{
-		Debug.Log("Player has collided with " + col.collider.name);
-		if(col.gameObject.tag == "Ground")
+		Debug.Log("Player has collided with " + HasCollided.collider.name);
+		if(HasCollided.gameObject.tag == "Ground")
 		{
 			isGrounded = true;
 		}
