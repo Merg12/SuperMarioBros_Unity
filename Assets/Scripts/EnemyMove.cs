@@ -13,7 +13,7 @@ public class EnemyMove : MonoBehaviour {
 		//
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(XMoveDirection, 0));
 		gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(XMoveDirection, 0) * EnemySpeed;
-		if(hit.distance < 0.8f)
+		if(hit.distance < 0.9f) //this is how far from the enemy to the wall that determines when the enemy should start moving the other direction
 		{
 			Flip();
 		}
