@@ -29,7 +29,15 @@ public class PlayerScore : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D trig)
 	{
-		CountScore();
+		if(trig.gameObject.name == "EndLevelArea")
+		{
+			CountScore();
+		}
+		if(trig.gameObject.name == "coin_01")
+		{
+			Player_Score += 10;
+			Destroy(trig.gameObject);
+		}
 		Debug.Log("touched the end of the level");
 	}
 
