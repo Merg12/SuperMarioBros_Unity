@@ -16,6 +16,12 @@ public class EnemyMove : MonoBehaviour {
 		if(hit.distance < 0.9f) //this is how far from the enemy to the wall that determines when the enemy should start moving the other direction
 		{
 			Flip();
+			//Destroy(hit.collider.gameObject); if this line exist its used to destroy anything the enemy touches instead we will use more specific...
+			if(hit.collider.tag == "Player") //only works if Player layer on "default" instead of "ignore raycast"
+			{
+				//Debug.Log("enemy hit player");
+				Destroy(hit.collider.gameObject);
+			}	
 		}
 		
 	}
