@@ -17,8 +17,8 @@ public class PlayerScore : MonoBehaviour {
 
 		TimeLeft -= Time.deltaTime; //makes the countdown by seconds
 		
-		TimeLeftUI.gameObject.GetComponent<Text>().text = ("Time Left: " + (int)TimeLeft);
-		Player_ScoreUI.gameObject.GetComponent<Text>().text = ("Score: " + Player_Score);
+		TimeLeftUI.gameObject.GetComponent<Text>().text = ("Time Left: " + (int)TimeLeft); //displays the time
+		Player_ScoreUI.gameObject.GetComponent<Text>().text = ("Score: " + Player_Score); //displays the score
 		//Debug.Log(TimeLeft); //sees if the countdown is working
 		if(TimeLeft < 0.1f)
 		{
