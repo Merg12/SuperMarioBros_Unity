@@ -90,12 +90,13 @@ public class PlayerMove : MonoBehaviour {
 	void PlayerRaycast() //used to jump on top of enemy to kill it
 	{
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down); //raycast pointing down
-		if(hit.distance < 0.9f && hit.collider.tag == "Enemy") //enemy tag
+		//adding "hit != null && hit.collider != null &&..." fixed the problem to where the raycast was looking for a spot to look for when jumping over the deadzone. it needed something to "hit" because we are asking for a distance and a collider. this is a hack-y way to fix this issue
+		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag == "Enemy") //enemy tag
 		{
 			//Debug.Log("Squished Enemy");
 			GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000); //causes player to bounce when jumping on the enemy
 		}
-		if(hit.distance < 0.9f && hit.collider.tag != "Enemy") //issue with not able to jump from blocks because we can only jump from "Ground" tag; notice tag is with everything EXCEPT enemy then we can jump again; we don't need above OnCollisionEnter2D function anymore. its the same thing. Now something is allowing player to jump multiple (up to 2 extra jumps) in mid air...
+		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag != "Enemy") //issue with not able to jump from blocks because we can only jump from "Ground" tag; notice tag is with everything EXCEPT enemy then we can jump again; we don't need above OnCollisionEnter2D function anymore. its the same thing. Now something is allowing player to jump multiple (up to 2 extra jumps) in mid air...
 		{
 			isGrounded = true;
 		}
