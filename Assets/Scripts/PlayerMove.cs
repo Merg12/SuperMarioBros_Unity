@@ -89,6 +89,13 @@ public class PlayerMove : MonoBehaviour {
 
 	void PlayerRaycast() //used to jump on top of enemy to kill it
 	{
+		RaycastHit2D RayUp = Physics2D.Raycast(transform.position, Vector2.up);
+		if(RayUp != null && RayUp.collider != null && RayUp.distance < 0.9f && RayUp.collider.name == "MysteryBox")
+		{
+			//Debug.Log("hit box!");
+			Destroy(RayUp.collider.gameObject);
+		}
+
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down); //raycast pointing down
 		//adding "hit != null && hit.collider != null &&..." fixed the problem to where the raycast was looking for a spot to look for when jumping over the deadzone. it needed something to "hit" because we are asking for a distance and a collider. this is a hack-y way to fix this issue
 		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag == "Enemy") //enemy tag; added as long as we the hit points to isn't null/nothing
