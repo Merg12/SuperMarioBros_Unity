@@ -91,7 +91,7 @@ public class PlayerMove : MonoBehaviour {
 	{
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down); //raycast pointing down
 		//adding "hit != null && hit.collider != null &&..." fixed the problem to where the raycast was looking for a spot to look for when jumping over the deadzone. it needed something to "hit" because we are asking for a distance and a collider. this is a hack-y way to fix this issue
-		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag == "Enemy") //enemy tag
+		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag == "Enemy") //enemy tag; added as long as we the hit points to isn't null/nothing
 		{
 			//Debug.Log("Squished Enemy");
 			GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000); //causes player to bounce when jumping on the enemy
