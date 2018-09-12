@@ -23,6 +23,14 @@ public class EnemyMove : MonoBehaviour {
 				Destroy(hit.collider.gameObject);
 			}	
 		}
+
+		//TODO fix this desgusting code
+		//so this error'd because contraindicated with playermove script line that diabled movescript
+		//f(gameObject.transform.position.y < -50)
+		//{
+			//Debug.Log("enemy is 50 down!");
+			//Destroy(gameObject);
+		//}
 		
 	}
 	void Flip()

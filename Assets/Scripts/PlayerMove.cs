@@ -95,6 +95,13 @@ public class PlayerMove : MonoBehaviour {
 		{
 			//Debug.Log("Squished Enemy");
 			GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000); //causes player to bounce when jumping on the enemy
+			hit.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 200); //after jumping on top of, this line makes the enemy move slightly right
+			hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 8; //upon player jumping on top, this makes the gravity to 8 and enemy falls thru floor
+			hit.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false; //i don't know why this is hear... to stop it from rotating?
+			hit.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false; //then this line makes the boxcollider2d turn off
+			hit.collider.gameObject.GetComponent<EnemyMove>().enabled = false; //and this line makes enemymove script false; basically disabling the movement of enemy script wise
+			
+			//Destroy(hit.collider.gameObject); //destroy enemy when jumped on
 		}
 		if(hit != null && hit.collider != null && hit.distance < 0.9f && hit.collider.tag != "Enemy") //issue with not able to jump from blocks because we can only jump from "Ground" tag; notice tag is with everything EXCEPT enemy then we can jump again; we don't need above OnCollisionEnter2D function anymore. its the same thing. Now something is allowing player to jump multiple (up to 2 extra jumps) in mid air...
 		{
