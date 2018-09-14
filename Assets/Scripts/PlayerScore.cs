@@ -16,7 +16,6 @@ public class PlayerScore : MonoBehaviour {
 	void Update () {
 
 		TimeLeft -= Time.deltaTime; //makes the countdown by seconds
-		
 		TimeLeftUI.gameObject.GetComponent<Text>().text = ("Time Left: " + (int)TimeLeft); //displays the time
 		Player_ScoreUI.gameObject.GetComponent<Text>().text = ("Score: " + Player_Score); //displays the score
 		//Debug.Log(TimeLeft); //sees if the countdown is working
@@ -42,12 +41,12 @@ public class PlayerScore : MonoBehaviour {
 		Debug.Log("touched the end of the level");
 	}
 
-	void CountScore()
+	void CountScore() //reference to DataManagement Script
 	{
-		Debug.Log("Data says high score is currently " + DataManagement.datamanagement.HighScore);
+		Debug.Log("Data says high score is currently " + DataManagement.datamanagement.highScore); // we are asking for the score before adding to variable
 		Player_Score += (int)(TimeLeft * 10); //normally you can't change a float back to an int but we cast'd that into an int to make it work for logging
-		DataManagement.datamanagement.HighScore = Player_Score + (int)(TimeLeft * 10);
+		DataManagement.datamanagement.highScore = Player_Score + (int)(TimeLeft * 10);
 		DataManagement.datamanagement.SaveData();
-		Debug.Log("Now that we have added the score to DataManagement, Data says high school is currently " + DataManagement.datamanagement.HighSchool);
+		Debug.Log("Now that we have added the score to DataManagement, Data says high school is currently " + DataManagement.datamanagement.highScore); //we are now asking what the score is after adding to variable and saving the data
 	}
 }
