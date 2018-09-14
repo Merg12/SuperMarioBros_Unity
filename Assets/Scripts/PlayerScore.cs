@@ -11,7 +11,7 @@ public class PlayerScore : MonoBehaviour {
 	public int Player_Score = 0;
 	public GameObject TimeLeftUI;
 	public GameObject Player_ScoreUI;
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -32,6 +32,7 @@ public class PlayerScore : MonoBehaviour {
 		if(trig.gameObject.name == "EndLevelArea")
 		{
 			CountScore();
+			DataManagement.datamanagement.SaveData(); //saving the score after beating the level
 		}
 		if(trig.gameObject.name == "coin_01")
 		{
@@ -43,7 +44,10 @@ public class PlayerScore : MonoBehaviour {
 
 	void CountScore()
 	{
+		Debug.Log("Data says high score is currently " + DataManagement.datamanagement.HighScore);
 		Player_Score += (int)(TimeLeft * 10); //normally you can't change a float back to an int but we cast'd that into an int to make it work for logging
-		Debug.Log("player score: " + Player_Score);
+		DataManagement.datamanagement.HighScore = Player_Score + (int)(TimeLeft * 10);
+		DataManagement.datamanagement.SaveData();
+		Debug.Log("Now that we have added the score to DataManagement, Data says high school is currently " + DataManagement.datamanagement.HighSchool);
 	}
 }
