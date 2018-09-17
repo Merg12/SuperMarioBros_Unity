@@ -45,7 +45,7 @@ public class PlayerScore : MonoBehaviour {
 	{
 		Debug.Log("Data says high score is currently " + DataManagement.datamanagement.highScore); // we are asking for the score before adding to variable
 		Player_Score += (int)(TimeLeft * 10); //normally you can't change a float back to an int but we cast'd that into an int to make it work for logging
-		DataManagement.datamanagement.highScore = Player_Score + (int)(TimeLeft * 10);
+		DataManagement.datamanagement.highScore = Player_Score; //+ (int)(TimeLeft * 10);
 		DataManagement.datamanagement.SaveData();
 		Debug.Log("Now that we have added the score to DataManagement, Data says high school is currently " + DataManagement.datamanagement.highScore); //we are now asking what the score is after adding to variable and saving the data
 	}
