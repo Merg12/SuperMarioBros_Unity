@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour {
 
 	public int PlayerSpeed = 10;
-	public bool FacingRight = true;
+	public bool FacingRight = true; //this could be deleted if we used flipX to true or false
 	public int PlayerJumpPower = 1250;
 	public float MoveX;
 	public bool isGrounded;
@@ -38,6 +38,14 @@ public class PlayerMove : MonoBehaviour {
 			Jump();
 		}
 		//animations
+		if(MoveX != 0)
+		{
+			GetComponent<Animator>().SetBool("isRunning", true);
+		}else
+		{
+			GetComponent<Animator>().SetBool("isRunning", false);
+		}
+		//Update in episode 8: Author uses GetComponent<SpriteRenderer>().flipX = true; and then next line = false and then deletes all the other code related to this big mess.
 		//player directions
 		if(MoveX < 0.0f && FacingRight == true)
 		{
@@ -65,7 +73,7 @@ public class PlayerMove : MonoBehaviour {
 		isGrounded = false;
 	}
 
-	void FlipPlayer()
+	void FlipPlayer() //this could be deleted if we had flipX to true or false
 	{
 		//localScale refers to our transform component. when "scale" turns negative, our player looks to the left and when positive it looks right
 		//I am still trying to figure out what !FacingRight even does, but removing it causes moving left to show player constantly flipping left AND right. while moving right is ok.
