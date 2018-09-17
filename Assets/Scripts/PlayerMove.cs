@@ -9,6 +9,7 @@ public class PlayerMove : MonoBehaviour {
 	public int PlayerJumpPower = 1250;
 	public float MoveX;
 	public bool isGrounded;
+	public float distanceToBottomPlayer = 0.9f; //many objects in the game come in different sizes so raycast to a const float might not always be good. We place this distance into a variable to fix it
 
 //======================================================================================================
 
@@ -98,7 +99,7 @@ public class PlayerMove : MonoBehaviour {
 
 		RaycastHit2D RayDown = Physics2D.Raycast(transform.position, Vector2.down); //raycast pointing down
 		//adding "hit != null && hit.collider != null &&..." fixed the problem to where the raycast was looking for a spot to look for when jumping over the deadzone. it needed something to "hit" because we are asking for a distance and a collider. this is a hack-y way to fix this issue
-		if(RayDown != null && RayDown.collider != null && RayDown.distance < 0.9f && RayDown.collider.tag == "Enemy") //enemy tag; added as long as we the hit points to isn't null/nothing
+		if(RayDown != null && RayDown.collider != null && RayDown.distance < distanceToBottomPlayer && RayDown.collider.tag == "Enemy") //enemy tag; added as long as we the hit points to isn't null/nothing
 		{
 			//Debug.Log("Squished Enemy");
 			GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000); //causes player to bounce when jumping on the enemy
@@ -110,7 +111,7 @@ public class PlayerMove : MonoBehaviour {
 			
 			//Destroy(hit.collider.gameObject); //destroy enemy when jumped on
 		}
-		if(RayDown != null && RayDown.collider != null && RayDown.distance < 0.9f && RayDown.collider.tag != "Enemy") //issue with not able to jump from blocks because we can only jump from "Ground" tag; notice tag is with everything EXCEPT enemy then we can jump again; we don't need above OnCollisionEnter2D function anymore. its the same thing. Now something is allowing player to jump multiple (up to 2 extra jumps) in mid air...
+		if(RayDown != null && RayDown.collider != null && RayDown.distance < distanceToBottomPlayer && RayDown.collider.tag != "Enemy") //issue with not able to jump from blocks because we can only jump from "Ground" tag; notice tag is with everything EXCEPT enemy then we can jump again; we don't need above OnCollisionEnter2D function anymore. its the same thing. Now something is allowing player to jump multiple (up to 2 extra jumps) in mid air...
 		{
 			isGrounded = true;
 		}
