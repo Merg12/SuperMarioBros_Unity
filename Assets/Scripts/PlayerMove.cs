@@ -38,6 +38,7 @@ public class PlayerMove : MonoBehaviour {
 			Jump();
 		}
 		//animations
+		//super simple animations that link to the animator tab in Unity with conditions and parameters
 		if(MoveX != 0)
 		{
 			GetComponent<Animator>().SetBool("isRunning", true);
